@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+<body>
+   <style>
+      html, body {
+         margin: 0;
+         padding: 0%;
+         max-width: 100%;
+         box-sizing: border-box;
+      }
+
+      main {
+         background-color: blanchedalmond;
+         padding: 2%;
+         max-width: 100%;
+         margin: 0 auto;
+      }
+
+      .buttons {
+         text-align: end;
+         margin-bottom: 3%;
+      }
+
+      .buttons img {
+         width: 40px;
+      }
+
+      .cards {
+         max-width: 100%;
+         display:grid;
+         gap: 20px;
+         grid-template-columns: 1fr 1fr;
+      }
+
+      .card {
+         max-width: 100%;
+         padding: 5%;
+         text-align: center;
+         border: black soid 2px;
+         box-shadow: 0 0 0 5px black;
+      }
+
+      .listView {
+         grid-template-columns: 1fr;
+      }
+   </style>
+
+   <main>
+      <h1>test</h1>
+      <div class="buttons">
+         <img id="grid" src="grid.png" alt="Grid">
+      <img id="list" src="list.png" alt="List">
+      </div>
+      
+            
+      <div id="temples"></div>
+   </main>
+   
+
+   <script>
+      fetch('./temples.json')
+      .then(response => {
+         return response.json();
+      })
+      .then(data => {
+         let mainDiv = document.getElementById('temples');
+         mainDiv.className = 'cards';
+
+         data.temples.forEach(temple => {
+            let div = document.createElement('div');
+            div.className = 'card'
+
+            let name = document.createElement('p');
+            name.textContent = temple.name;
+
+            let telephoneNum = document.createElement('p');
+            telephoneNum.textContent = temple.telephone;
+
+            let email = document.createElement('p');
+            email.textContent = temple.email;
+
+            div.appendChild(name); 
+            div.appendChild(telephoneNum);
+            div.appendChild(email);
+
+            mainDiv.appendChild(div)
+         });
+      })
+
+      const grid = document.getElementById('grid');
+      const temples = document.getElementById('temples')
+      
+      const list = document.getElementById('list');
+
+      window.addEventListener('DOMContentLoaded', () => {
+         grid.addEventListener('click', ()=> {
+         if (temples.classList.contains("listView")) {
+            temples.classList.remove("listView");
+            console.log(temples)
+         }
+      });
+
+      list.addEventListener('click', ()=> {
+         temples.classList.add("listView");
+         console.log(temples)
+      })
+
+      })
+      
+   </script>
+   
+</body>
+</html>
